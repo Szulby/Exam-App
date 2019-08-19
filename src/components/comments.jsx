@@ -52,7 +52,13 @@ const CommentBox = styled.div`
     }
   }
 `
-
+const parse = createdAt => {
+  let date = new Date(createdAt)
+  date = date.toString()
+  let myRe = date.match('GMT.+')
+  let newDate = date.slice(0, myRe.index)
+  return newDate
+}
 const Comments = ({ post }) => {
   return (
     <CommentBox key={post.id}>
@@ -65,7 +71,7 @@ const Comments = ({ post }) => {
               ${post.owner.firstName} 
               ${post.owner.lastName}`}
             </p>
-            <p>{`${post.createdAt}`}</p>
+            <p>{parse(post.createdAt)}</p>
           </div>
           <hr />
         </div>
